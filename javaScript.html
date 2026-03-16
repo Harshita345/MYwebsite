@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Mode + Form Validation + Smooth Scroll</title>
+
+<style>
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:Arial;
+margin:0;
+padding:0;
+background:white;
+color:black;
+transition:0.4s;
+}
+
+/* DARK MODE */
+
+.dark{
+background:#121212;
+color:white;
+}
+
+/* NAVBAR */
+
+nav{
+background:#333;
+padding:15px;
+display:flex;
+justify-content:space-between;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-right:20px;
+}
+
+button{
+padding:8px 15px;
+cursor:pointer;
+}
+
+/* SECTIONS */
+
+section{
+padding:80px;
+height:100vh;
+}
+
+/* FORM */
+
+form{
+max-width:400px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+.error{
+color:red;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</div>
+
+<button onclick="toggleDark()">Dark Mode</button>
+
+</nav>
+
+<section id="home">
+<h1>Home Section</h1>
+<p>Scroll down to see smooth scrolling.</p>
+</section>
+
+<section id="about">
+<h1>About Section</h1>
+<p>This page demonstrates Dark Mode, Form Validation and Smooth Scrolling.</p>
+</section>
+
+<section id="contact">
+
+<h1>Contact Form</h1>
+
+<form onsubmit="return validateForm()">
+
+<input type="text" id="name" placeholder="Enter Name">
+<div id="nameError" class="error"></div>
+
+<input type="email" id="email" placeholder="Enter Email">
+<div id="emailError" class="error"></div>
+
+<input type="password" id="password" placeholder="Enter Password">
+<div id="passError" class="error"></div>
+
+<button type="submit">Submit</button>
+
+</form>
+
+</section>
+
+
+<script>
+
+/* DARK MODE */
+
+function toggleDark(){
+
+document.body.classList.toggle("dark")
+
+}
+
+
+/* FORM VALIDATION */
+
+function validateForm(){
+
+let name=document.getElementById("name").value
+let email=document.getElementById("email").value
+let password=document.getElementById("password").value
+
+let valid=true
+
+if(name==""){
+document.getElementById("nameError").innerHTML="Name required"
+valid=false
+}else{
+document.getElementById("nameError").innerHTML=""
+}
+
+if(email==""){
+document.getElementById("emailError").innerHTML="Email required"
+valid=false
+}else{
+document.getElementById("emailError").innerHTML=""
+}
+
+if(password.length<6){
+document.getElementById("passError").innerHTML="Password must be 6 characters"
+valid=false
+}else{
+document.getElementById("passError").innerHTML=""
+}
+
+return valid
+
+}
+
+</script>
+
+</body>
+</html>
