@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body { font-family: 'Segoe UI', Arial, sans-serif; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(45deg, #6c63ff, #00c9a7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+    }
+    nav .logo { color: white; font-size: 22px; font-weight: 700; text-decoration: none; }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul a { color: white; text-decoration: none; font-weight: 600; font-size: 15px; transition: opacity 0.2s; }
+    nav ul a:hover { opacity: 0.75; }
+    nav .stop-btn {
+      padding: 8px 18px;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* ── SPEAK BUTTON ── */
+    .speak-btn {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    /* ── HOME ── */
+    #home {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+      color: white;
+    }
+    #home h1 { font-size: 52px; margin-bottom: 12px; }
+    #home h1 span { color: #ffe066; }
+    #home .role { font-size: 22px; color: #a0a0b0; margin-bottom: 14px; }
+    #home .desc { font-size: 16px; color: #ccc; margin-bottom: 32px; max-width: 500px; line-height: 1.7; }
+    #home .btn-row { display: flex; gap: 16px; align-items: center; }
+    #home .hire-btn {
+      padding: 13px 34px;
+      background: #e94560;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      min-height: 100vh;
+      background: linear-gradient(120deg, #ff6a88, #ff9a44);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 40px;
+      color: white;
+      text-align: center;
+    }
+    #about .header-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    #about h2 { font-size: 40px; }
+    #about .about-text { font-size: 17px; max-width: 600px; line-height: 1.8; margin-bottom: 30px; }
+    .info-box {
+      background: rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 20px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+    .info-item { padding: 8px; text-align: left; }
+
+    /* ── SKILLS ── */
+    #skills {
+      background: #1a1a2e;
+      padding: 80px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    #skills .header-row { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    #skills h2 { font-size: 38px; color: white; }
+    #skills h2 span { color: #e94560; }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+    .skill-badge {
+      background: rgba(233,69,96,0.15);
+      border: 1px solid #e94560;
+      color: #e94560;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.3s, color 0.3s;
+      cursor: default;
+    }
+    .skill-badge:hover { background: #e94560; color: white; }
+
+    /* ── PROJECTS ── */
+    #projects {
+      min-height: 100vh;
+      background: linear-gradient(120deg, #43cea2, #185a9d);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 40px;
+      color: white;
+      text-align: center;
+    }
+    #projects .header-row { display: flex; align-items: center; gap: 16px; margin-bottom: 44px; }
+    #projects h2 { font-size: 40px; }
+    .projects-grid { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
+    .project-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 28px 24px;
+      width: 270px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      transition: transform 0.3s;
+    }
+    .project-card:hover { transform: translateY(-6px); }
+    .project-card h3 { font-size: 20px; margin-bottom: 10px; }
+    .project-card p { font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
+    .tech-tag {
+      background: rgba(255,255,255,0.3);
+      padding: 5px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    #contact h2 { font-size: 38px; color: white; margin-bottom: 10px; }
+    #contact h2 span { color: #e94560; }
+    #contact .contact-info { color: #aaa; font-size: 15px; margin-bottom: 32px; }
+    .contact-form {
+      background: white;
+      padding: 36px;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      text-align: left;
+    }
+    .contact-form label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; margin-top: 14px; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.3s;
+      resize: vertical;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: #e94560; }
+    .contact-form .error { color: #e94560; font-size: 12px; margin-top: 4px; }
+    .contact-form button {
+      width: 100%;
+      padding: 13px;
+      background: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+    .contact-form button:hover { background: #574fd6; }
+    .success-msg {
+      background: white;
+      color: #27ae60;
+      padding: 22px 44px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #111; color: #888; text-align: center; padding: 20px; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#home" class="logo">MyPortfolio</a>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="stop-btn" onclick="stopSpeech()">⏹ Stop</button>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home">
+    <h1>Hi, I'm <span>Your Name</span> 👋</h1>
+    <p class="role">Web Developer</p>
+    <p class="desc">Hello! Welcome to my personal portfolio website.</p>
+    <div class="btn-row">
+      <a href="#contact" class="hire-btn">Hire Me 🚀</a>
+      <button
+        id="home-speak-btn"
+        class="speak-btn"
+        style="background: white; color: #6c63ff;"
+        onclick="toggleSpeak('home-speak-btn', 'Hi, I am Your Name. I am a Web Developer. Hello! Welcome to my personal portfolio website.')">
+        🔊 Speak
+      </button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="header-row">
+      <h2>About Me</h2>
+      <button
+        id="about-speak-btn"
+        class="speak-btn"
+        style="background: rgba(255,255,255,0.25); color: white;"
+        onclick="toggleSpeak('about-speak-btn', 'About Me. I am a passionate web developer who enjoys creating websites and learning new technologies. Name: Your Name. Email: yourname at email dot com. Phone: 1234567890. Location: India.')">
+        🔊 Speak
+      </button>
+    </div>
+    <p class="about-text">
+      I am a passionate web developer who enjoys creating websites and learning new technologies.
+    </p>
+    <div class="info-box">
+      <div class="info-item"><strong>Name:</strong> Your Name</div>
+      <div class="info-item"><strong>Email:</strong> yourname@email.com</div>
+      <div class="info-item"><strong>Phone:</strong> 1234567890</div>
+      <div class="info-item"><strong>Location:</strong> India</div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="header-row">
+      <h2>My <span>Skills</span></h2>
+      <button
+        id="skills-speak-btn"
+        class="speak-btn"
+        style="background: rgba(233,69,96,0.2); color: #e94560; border: 1px solid #e94560;"
+        onclick="toggleSpeak('skills-speak-btn', 'My Skills are: HTML, Basic CSS, and JavaScript.')">
+        🔊 Speak
+      </button>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-badge">HTML</div>
+      <div class="skill-badge">Basic CSS</div>
+      <div class="skill-badge">JavaScript</div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="header-row">
+      <h2>My Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <h3>Portfolio Website</h3>
+        <p>A website to showcase my skills and projects.</p>
+        <span class="tech-tag">HTML, CSS, React</span><br/>
+        <button
+          id="proj1-speak-btn"
+          class="speak-btn"
+          style="background: rgba(255,255,255,0.3); color: white; margin-top: 16px;"
+          onclick="toggleSpeak('proj1-speak-btn', 'Project: Portfolio Website. A website to showcase my skills and projects. Technologies used: HTML, CSS, React.')">
+          🔊 Speak
+        </button>
+      </div>
+
+      <div class="project-card">
+        <h3>Simple Calculator</h3>
+        <p>A basic calculator made using web technologies.</p>
+        <span class="tech-tag">HTML, CSS, JavaScript</span><br/>
+        <button
+          id="proj2-speak-btn"
+          class="speak-btn"
+          style="background: rgba(255,255,255,0.3); color: white; margin-top: 16px;"
+          onclick="toggleSpeak('proj2-speak-btn', 'Project: Simple Calculator. A basic calculator made using web technologies. Technologies used: HTML, CSS, JavaScript.')">
+          🔊 Speak
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact <span>Me</span></h2>
+    <p class="contact-info">📧 yourname@email.com &nbsp;|&nbsp; 📞 1234567890</p>
+
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <label>Name</label>
+      <input type="text" id="name" placeholder="Enter your name" />
+      <div class="error" id="name-error"></div>
+
+      <label>Email</label>
+      <input type="text" id="email" placeholder="Enter your email" />
+      <div class="error" id="email-error"></div>
+
+      <label>Message</label>
+      <textarea id="message" rows="4" placeholder="Write your message..."></textarea>
+      <div class="error" id="message-error"></div>
+
+      <button type="submit">Send Message 📩</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Your Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ── TEXT TO SPEECH ──
+    let currentBtn = null;
+
+    function toggleSpeak(btnId, text) {
+      const btn = document.getElementById(btnId);
+
+      // Agar same button dobara click kiya → stop
+      if (currentBtn === btnId && window.speechSynthesis.speaking) {
+        stopSpeech();
+        return;
+      }
+
+      // Pehle jo chal raha hai usse stop karo
+      stopSpeech();
+
+      // Naya speech start karo
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+
+      utterance.onstart = () => {
+        currentBtn = btnId;
+        btn.textContent = '⏹ Stop';
+        btn.style.background = '#ff4d4d';
+        btn.style.color = 'white';
+      };
+
+      utterance.onend = () => resetBtn(btnId);
+      utterance.onerror = () => resetBtn(btnId);
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+      window.speechSynthesis.cancel();
+      if (currentBtn) resetBtn(currentBtn);
+      currentBtn = null;
+    }
+
+    function resetBtn(btnId) {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      btn.textContent = '🔊 Speak';
+
+      // Har button ka original color restore karo
+      const colorMap = {
+        'home-speak-btn':   { bg: 'white',                    color: '#6c63ff' },
+        'about-speak-btn':  { bg: 'rgba(255,255,255,0.25)',   color: 'white'   },
+        'skills-speak-btn': { bg: 'rgba(233,69,96,0.2)',      color: '#e94560' },
+        'proj1-speak-btn':  { bg: 'rgba(255,255,255,0.3)',    color: 'white'   },
+        'proj2-speak-btn':  { bg: 'rgba(255,255,255,0.3)',    color: 'white'   },
+      };
+      if (colorMap[btnId]) {
+        btn.style.background = colorMap[btnId].bg;
+        btn.style.color      = colorMap[btnId].color;
+      }
+      currentBtn = null;
+    }
+
+    // ── CONTACT FORM VALIDATION ──
+    function handleSubmit(e) {
+      e.preventDefault();
+      let valid = true;
+
+      const name    = document.getElementById('name').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      document.getElementById('name-error').textContent    = '';
+      document.getElementById('email-error').textContent   = '';
+      document.getElementById('message-error').textContent = '';
+
+      if (!name) {
+        document.getElementById('name-error').textContent = 'Name is required';
+        valid = false;
+      }
+      if (!email) {
+        document.getElementById('email-error').textContent = 'Email is required';
+        valid = false;
+      } else if (!email.includes('@')) {
+        document.getElementById('email-error').textContent = 'Enter a valid email';
+        valid = false;
+      }
+      if (!message) {
+        document.getElementById('message-error').textContent = 'Message is required';
+        valid = false;
+      }
+
+      if (valid) {
+        document.querySelector('.contact-form').innerHTML =
+          '<div style="text-align:center; color: #27ae60; font-size: 18px; font-weight: bold; padding: 20px;">✅ Message Sent Successfully!</div>';
+      }
+    }
+  </script>
+
+</body>
+</html>
